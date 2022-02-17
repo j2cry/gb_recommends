@@ -1,3 +1,5 @@
+Python version: 3.9.5
+
 hw 1: Стандартные метрики для рекомендаций:
 1. hit rate at k
 2. money precision at k
