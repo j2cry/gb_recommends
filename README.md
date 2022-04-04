@@ -36,7 +36,6 @@ hw3: Коллаборативная фильтрация
 
 hw4: Рекомендательные системы на основе контента
 1. ALS baseline (from hw3)
-2. Similar-Item recommender
-   * Private label recommender
-3. Similar-User recommender
+2. Similar-Item recommender (+private label filter)
+3. Similar-User recommender (+private label filter)
 4. Metrics comparison
