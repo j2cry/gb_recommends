@@ -1,0 +1,9 @@
+LICENSE
+pyproject.toml
+setup.cfg
+src/als_recommender_fragarie.egg-info/PKG-INFO
+src/als_recommender_fragarie.egg-info/SOURCES.txt
+src/als_recommender_fragarie.egg-info/dependency_links.txt
+src/als_recommender_fragarie.egg-info/top_level.txt
+src/recommender/__init__.py
+src/recommender/hw4rec.py
