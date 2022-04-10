@@ -32,3 +32,10 @@ hw3: Коллаборативная фильтрация
 2. Базовое решение
 3. User-item взвешивание
 4. Подбор гиперпараметров модели
+
+
+hw4: Рекомендательные системы на основе контента
+1. ALS baseline (from hw3)
+2. Similar-Item recommender (+private label filter)
+3. Similar-User recommender (+private label filter)
+4. Metrics comparison
