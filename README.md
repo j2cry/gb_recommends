@@ -39,3 +39,11 @@ hw4: Рекомендательные системы на основе конт�
 2. Similar-Item recommender (+private label filter)
 3. Similar-User recommender (+private label filter)
 4. Metrics comparison
+
+
+hw5: Поиск похожих товаров и пользователей. Гибридные рекомендательные системы
+1. product features EDA
+2. user features EDA
+3. LightFM baseline
+4. LightFM research
+5. Metrics comparison
