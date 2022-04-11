@@ -26,6 +26,7 @@ class DataProcessor:
         self.train_uim = None
         self.train_uim_sparse = None
         self.train_uim_weighted = None
+        self.test = None
         if test is not None:
             self.test = test.copy()
             self.test_uim = None
@@ -57,13 +58,14 @@ class DataProcessor:
             self.test_uim_sparse = self.prepare_test_uim(self.top_config, **self.uim_config)
 
     @staticmethod
-    def popularity_measure(data, fields: List[str], beta: List[float] = None, scaler=None, **kwargs):
+    def popularity_measure(data, fields: List[str] = ['quantity'], beta: List[float] = None, scaler=None, **kwargs):
         """ Расчет оценки важности товара в покупке
         :param data: исходные данные
         :param fields: признаки, по которым измеряется мера важности товара
         :param beta: множители значимости для каждого признака в оценке
         :param scaler: класс масштабирования данных
         """
+        # fields = list(fields)
         b = [1.] * len(fields) if beta is None else np.array(beta)
         assert len(fields) == len(b), '`fields` and `beta` dimensions must equal'
         assert (scaler is None) or issubclass(scaler, TransformerMixin), 'scaler must be a subclass of TransformerMixin'
@@ -78,7 +80,7 @@ class DataProcessor:
         popularity = self.train.groupby('item_id')[self.__measure_title].sum()
         return popularity.sort_values(ascending=False).head(k).index.tolist()
 
-    def prepare_uim(self, aggfunc, weights):
+    def prepare_uim(self, aggfunc='count', weights=None):
         """ Подготовка user-item матрицы
         :param aggfunc: pivot table aggregation function
         :param weights: функция взвешивания. На входе и на выходе item-user матрица (т.е. транспонированная user-item)
