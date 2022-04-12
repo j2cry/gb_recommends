@@ -44,6 +44,6 @@ hw4: Рекомендательные системы на основе конт�
 hw5: Поиск похожих товаров и пользователей. Гибридные рекомендательные системы
 1. item features EDA
 2. user features EDA
-3. LightFM baseline
-4. LightFM research
+3. LightFM
+4. Hyperoptions research
 5. Metrics comparison

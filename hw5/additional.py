@@ -22,13 +22,13 @@ class DataProcessor:
         self.__measure_title = 'DataPreparer@popularity'
         self.top_k_items = None
         # user-item matrices
-        self.train = train.copy()
+        self.train = train
         self.train_uim = None
         self.train_uim_sparse = None
         self.train_uim_weighted = None
         self.test = None
         if test is not None:
-            self.test = test.copy()
+            self.test = test
             self.test_uim = None
             self.test_uim_sparse = None
             self.test_uim_weighted = None
@@ -106,9 +106,10 @@ class DataProcessor:
             self.train_uim_weighted = csr_matrix(weights(self.train_uim.T).T).tocsr()
         return csr_matrix(self.train_uim).tocsr()
 
-    def prepare_test_uim(self, top_config, aggfunc, weights):
+    def prepare_test_uim(self, top_config, aggfunc, weights=None):
         # отсеиваем из test товары, не попавшие в train
-        data_test = self.test[self.test['item_id'].isin(self.train['item_id'].unique())].copy()
+        id_in_train = self.test['item_id'].isin(self.top_train['item_id'].unique())
+        data_test = self.test[id_in_train].copy()
         # измеряем меру популярности товаров для создания pivot table
         data_test[self.__measure_title] = self.popularity_measure(data_test, **top_config)
         self.test_uim = pd.pivot_table(data_test,
