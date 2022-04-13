@@ -1,1 +1,1 @@
-{"metric": 0.011842106468975544, "params": {"item_alpha": 0.04194646712501058, "learning_rate": 0.33134377654955266, "no_components": 24.0, "user_alpha": 0.3439340673250181}}
+{"metric": 0.01781376637518406, "params": {"item_alpha": 0.240654265350158, "learning_rate": 0.39007483696146655, "no_components": 77.0, "user_alpha": 0.22396680261691937}}
