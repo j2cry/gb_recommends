@@ -101,12 +101,11 @@ class DataProcessor:
         self.id_to_userid = dict(enumerate(self.train_uim.index.values))
         self.itemid_to_id = {v: k for k, v in self.id_to_itemid.items()}
         self.userid_to_id = {v: k for k, v in self.id_to_userid.items()}
-        # применим веса
-        if weights:
-            self.train_uim_weighted = csr_matrix(weights(self.train_uim.T).T).tocsr()
+        # применим веса        
+        self.train_uim_weighted = csr_matrix(weights(self.train_uim.T).T).tocsr() if weights else csr_matrix(self.train_uim).tocsr()
         return csr_matrix(self.train_uim).tocsr()
 
-    def prepare_test_uim(self, top_config, aggfunc, weights=None):
+    def prepare_test_uim(self, top_config, aggfunc='count', weights=None):
         # отсеиваем из test товары, не попавшие в train
         id_in_train = self.test['item_id'].isin(self.top_train['item_id'].unique())
         data_test = self.test[id_in_train].copy()
@@ -117,7 +116,6 @@ class DataProcessor:
                                        aggfunc=aggfunc, fill_value=0)
         # нужны ли тут remap-словари?
         # применим веса
-        if weights:
-            self.test_uim_weighted = csr_matrix(weights(self.test_uim.T).T).tocsr()
+        self.test_uim_weighted = csr_matrix(weights(self.test_uim.T).T).tocsr() if weights else csr_matrix(self.test_uim).tocsr()
         return csr_matrix(self.test_uim).tocsr()
 
