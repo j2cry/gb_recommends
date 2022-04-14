@@ -107,7 +107,7 @@ class DataProcessor:
 
     def prepare_test_uim(self, top_config, aggfunc='count', weights=None):
         # отсеиваем из test товары, не попавшие в train
-        id_in_train = self.test['item_id'].isin(self.top_train['item_id'].unique())
+        id_in_train = self.test['item_id'].isin(self.top_k_items)
         data_test = self.test[id_in_train].copy()
         # измеряем меру популярности товаров для создания pivot table
         data_test[self.__measure_title] = self.popularity_measure(data_test, **top_config)
