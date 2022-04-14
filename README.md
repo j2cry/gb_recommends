@@ -45,5 +45,4 @@ hw5: Поиск похожих товаров и пользователей. Г�
 1. item features EDA
 2. user features EDA
 3. LightFM
-4. Hyperoptions research
-5. Metrics comparison
+4. hyper-options searching
