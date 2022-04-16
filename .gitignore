@@ -3,9 +3,11 @@
 /__pycache__/
 Fundamentional.ipynb
 /*/original/
+/*/__pycache__/
 /*/hh_demographic.csv
 /*/product.csv
 /*/retail_train.csv
+/aggregation/
 draft.ipynb
 hw1/webinar_1_new.ipynb
 hw2/webinar_2_new.ipynb
