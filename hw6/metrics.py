@@ -2,15 +2,21 @@ import numpy as np
 import pandas as pd
 from functools import partial
 
+def precision(true_values, pred_values, **kwargs):
+    flags = np.isin(pred_values, true_values)
+    return np.sum(flags) / len(pred_values)
+
+def recall(true_values, pred_values, **kwargs):
+    flags = np.isin(pred_values, true_values)
+    return np.sum(flags) / len(true_values)
 
 def precision_at_k(true_values, pred_values, k=5):
-    flags = np.isin(pred_values, true_values[:k])
+    flags = np.isin(pred_values[:k], true_values)
     return np.sum(flags) / k
 
 def recall_at_k(true_values, pred_values, k=5):
-    """ Recall on top k items """
-    flags = np.isin(pred_values, true_values[:k])
-    return np.sum(flags) / len(pred_values)
+    flags = np.isin(pred_values[:k], true_values)
+    return np.sum(flags) / len(true_values)
 
 def ap_k(true_values, pred_values, k=5):
     """ Average precision at k items """
@@ -29,7 +35,7 @@ def calc_mean_metric(metric_func, true_values, pred_values, k=5):
     :param pred_values: actual predictions
     """
     def metric_wrapper(pred, act):
-        return metric_func(pred, act, k) if len(pred) != 0 else 0
+        return metric_func(pred, act, k=k) if len(pred) != 0 else 0
 
     if isinstance(pred_values, pd.DataFrame):
         metric = pd.DataFrame(columns=pred_values.columns)
