@@ -23,7 +23,7 @@ class DataSplit:
         mask0 = self.data[self.field] <= max_value - np.sum(self.dimensions)
         setattr(self, 'part0', mask0)
         for i in range(len(self.dimensions)):
-            lower = max_value - np.sum(self.dimensions[i:])
-            upper = lower + self.dimensions[i]
-            mask = (self.data[self.field] > lower) & (self.data[self.field] <= upper)
+            left = max_value - np.sum(self.dimensions[i:])
+            right = left + self.dimensions[i]
+            mask = (self.data[self.field] > left) & (self.data[self.field] <= right)
             setattr(self, f'part{i + 1}', mask)
