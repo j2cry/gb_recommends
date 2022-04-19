@@ -49,4 +49,8 @@ hw5: Поиск похожих товаров и пользователей. Г�
 
 hw6: Двухуровневые модели рекомендаций
 1. Candidate models research
-2. 
+2. Fit candidate model (lv1)
+3. Prepare data for lv2 model fitting
+4. Feature engineering
+5. Fit lv2 model
+6. Predictions and metrics
