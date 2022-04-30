@@ -54,10 +54,12 @@ class X5Recommender:
             .sort_values(by=['user_id', 'proba'], ascending=[True, False])\
             .groupby('user_id').head(k)
         predict_candidates = sorted_candidates.groupby('user_id')['item_id'].unique()
-
+        # calc rank metric
         rank_metric = calc_mean_metric(precision_at_k,
                                        true_ranked_values['actual'], predict_candidates.reset_index(drop=True), k=k)
-        return predict_candidates, rank_metric
+        # fill missing predictions from top K items
+        predicts = self.cm.fill_from_top(predict_candidates, k)
+        return predicts, rank_metric
 
     def get_candidates(self, users, *, save_to=None) -> pd.DataFrame:
         """ Get candidates for specified users
@@ -103,9 +105,12 @@ class X5Recommender:
         true_train = prepare_true_values(train)
         true_valid = prepare_true_values(valid)
 
+        print('predicting train...')
         train_predicts, train_rank_pr = self.predict(train, k=k)
+        print('predicting valid...')
         valid_predicts, valid_rank_pr = self.predict(valid, k=k)
 
+        print('calculating metrics...')
         train_pr = calc_mean_metric(precision_at_k, true_train['actual'], train_predicts.reset_index(drop=True), k=k)
         valid_pr = calc_mean_metric(precision_at_k, true_valid['actual'], valid_predicts.reset_index(drop=True), k=k)
 

@@ -79,7 +79,8 @@ class CandidateModel:
         predicts = (user_array if hasattr(user_array, 'apply') else pd.Series(user_array)).apply(predictor)
         # check predicts amount and fill missing
         if self.top_items:
-            predicts = self.__fill_missing(predicts)
+            k = self.current_rec_params['N']
+            predicts = self.fill_from_top(predicts, k)
         return predicts
 
     def __recommend(self, user_id, rec_params):
@@ -90,12 +91,10 @@ class CandidateModel:
         rec_score = self.model.recommend(uid, **rec_params)
         return [self.idx_to_item[rec[0]] if self.idx_to_item else rec[0] for rec in rec_score]
 
-    def __fill_missing(self, predicts):
-        """ Check number of predictions for each user and fill missing """
+    def fill_from_top(self, predicts, k):
+        """ Fill missing predicts from top K items """
         predicts = predicts.copy()
-        k = self.current_rec_params['N']
         predicts_amount = predicts.apply(len)
         if (low_pred := predicts.index[predicts_amount < k]).any():
-            # add predictions from top-K
-            predicts[low_pred] = predicts[low_pred].apply(lambda pred: pred + [item for item in self.top_items if item not in pred][:k - len(pred)])
+            predicts[low_pred] = predicts[low_pred].apply(lambda pred: list(pred) + [item for item in self.top_items if item not in pred][:k - len(pred)])
         return predicts
