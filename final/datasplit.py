@@ -2,6 +2,12 @@ import numpy as np
 import pandas as pd
 
 
+def prepare_true_values(df):
+    true_values = df.groupby('user_id')['item_id'].unique().reset_index()
+    true_values.columns = ['user_id', 'actual']
+    return true_values
+
+
 class DataSplit:
     def __init__(self, data, field, dimensions):
         """ Split data to parts according to the specified dimensions by the value of the field (from more to less)

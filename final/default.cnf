@@ -1,0 +1,4 @@
+[PATHS]
+candidate_model = models/candidate_model.pkl
+featuring_pipeline = models/featuring_pipeline.pkl
+rank_model = models/rank_model.pkl
